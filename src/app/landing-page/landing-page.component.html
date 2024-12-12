@@ -1,0 +1,32 @@
+<app-toolbar [username]="username"></app-toolbar>
+
+<div class="landing-container">
+    <h1>Welcome to the Gamified Parsons Problems Tool</h1>
+
+    <!-- Achievements button to open achievements modal -->
+    <button (click)="openAchievements()">Achievements</button>
+  
+    <!-- Information button to open information modal -->
+    <button (click)="openInfo()">Information</button>
+
+    <button (click)="startGame()">Start Parsons Problem</button> <!-- Button to navigate -->
+  </div>
+  
+  <!-- Achievements Modal -->
+  <div *ngIf="showAchievements" class="modal-overlay" (click)="closeAchievements()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Achievements</h2>
+      <p>Your achievements will be displayed here!</p>
+      <button (click)="closeAchievements()">Close</button>
+    </div>
+  </div>
+  
+  <!-- Information Modal -->
+  <div *ngIf="showInfo" class="modal-overlay" (click)="closeInfo()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>About the Game</h2>
+      <p>This game is designed to help you practice database normalization using Parsons Problems!</p>
+      <button (click)="closeInfo()">Close</button>
+    </div>
+  </div>
+  

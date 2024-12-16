@@ -109,4 +109,11 @@ export class ParsonsProblemComponent implements OnInit {
       this.initializeParsons(this.paginatedQuestions[0]);
     }
   }
+
+  logout(): void {
+    sessionStorage.removeItem('loggedInUser'); // Remove user session
+    this.router.navigate(['/']); // Redirect to the login page or home
+    console.log('User logged out successfully.');
+  }
+  
 }

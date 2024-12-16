@@ -1,6 +1,13 @@
-<app-toolbar [username]="username"></app-toolbar>
+<!-- Header Section with Profile -->
+<div class="header">
+  <div class="profile">
+    <img src="https://via.placeholder.com/40" alt="User Avatar">
+    <span>{{ username }}</span>
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>
 
-
+<!-- Welcome and Questions -->
 <div class="welcome-container">
   <h1>Welcome to the Gamified Parsons Problems Tool</h1>
 </div>
@@ -10,24 +17,24 @@
   <p>{{ paginatedQuestions[0].content }}</p>
 </div>
 
+<!-- Parsons Widget -->
 <div class="parsons-widget-container">
-  <!-- Container for the "drag from here" and "construct solution" areas side-by-side -->
-  <div class="sortable-container">
-    <div id="sortableTrash" class="sortable-code">
-      <p>Drag from here</p>
-    </div>
-    <div id="sortable" class="sortable-code">
-      <p>Construct your solution here</p>
-    </div>
+  <div id="sortableTrash" class="sortable-code">
+    <p>Drag from here</p>
+  </div>
+  <div id="sortable" class="sortable-code">
+    <p>Construct your solution here</p>
   </div>
 </div>
 
+<!-- Buttons -->
 <div class="buttons">
   <button (click)="newInstance()">New Instance</button>
   <button (click)="getFeedback()">Get Feedback</button>
   <button (click)="toHome()">Home</button>
 </div>
 
+<!-- Pagination Footer -->
 <mat-paginator class="paginator"
                [length]="questions.length"
                [pageSize]="pageSize"

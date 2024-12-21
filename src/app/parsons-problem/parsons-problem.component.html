@@ -1,43 +1,30 @@
-<!-- Header Section with Profile -->
-<div class="header">
-  <div class="profile">
-    <img src="https://via.placeholder.com/40" alt="User Avatar">
-    <span>{{ username }}</span>
-    <button (click)="logout()">Logout</button>
+<div class="parsons header">
+  <app-toolbar> </app-toolbar>
+
+  <div class="col-12" style="height: 50px;"> </div>
+
+  <div class="game">
+    <!-- Parsons Widget Area -->
+    <div class="sortables-container">
+      <!-- Left: Trash Zone -->
+      <div id="sortableTrash" class="sortable-code drop-zone trash-zone">
+        <p>Drag from here</p>
+      </div>
+
+      <!-- Right: Solution Zone -->
+      <div id="sortable" class="sortable-code drop-zone solution-zone">
+        <p>Construct your solution here</p>
+      </div>
+
+      <!-- Feedback Button -->
+      <div class="buttons">
+        <button (click)="getFeedback()">Get Feedback</button>
+      </div>
+    </div>
   </div>
+
+<div class="animatie">
+
 </div>
 
-<!-- Welcome and Questions -->
-<div class="welcome-container">
-  <h1>Welcome to the Gamified Parsons Problems Tool</h1>
 </div>
-
-<div class="question-container" *ngIf="paginatedQuestions.length > 0">
-  <h2>{{ paginatedQuestions[0].section }}</h2>
-  <p>{{ paginatedQuestions[0].content }}</p>
-</div>
-
-<!-- Parsons Widget -->
-<div class="parsons-widget-container">
-  <div id="sortableTrash" class="sortable-code">
-    <p>Drag from here</p>
-  </div>
-  <div id="sortable" class="sortable-code">
-    <p>Construct your solution here</p>
-  </div>
-</div>
-
-<!-- Buttons -->
-<div class="buttons">
-  <button (click)="newInstance()">New Instance</button>
-  <button (click)="getFeedback()">Get Feedback</button>
-  <button (click)="toHome()">Home</button>
-</div>
-
-<!-- Pagination Footer -->
-<mat-paginator class="paginator"
-               [length]="questions.length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="[1, 2, 5, 10]"
-               (page)="handlePageEvent($event)">
-</mat-paginator>

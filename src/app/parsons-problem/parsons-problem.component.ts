@@ -4,13 +4,20 @@ import { CommonModule } from '@angular/common';
 import { Question } from './question.model';
 import { Router } from '@angular/router';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { MatIconModule } from '@angular/material/icon';
+
 
 declare var ParsonsWidget: any;
 
 @Component({
   selector: 'app-parsons-problem',
   standalone: true,
-  imports: [CommonModule, MatPaginatorModule, ToolbarComponent, ToolbarComponent],
+  imports: [
+    CommonModule,
+    MatPaginatorModule,
+    MatIconModule, 
+    ToolbarComponent
+  ],
   templateUrl: './parsons-problem.component.html',
   styleUrls: ['./parsons-problem.component.css']
 })
@@ -41,9 +48,13 @@ export class ParsonsProblemComponent implements OnInit {
   ];
 
   currentQuestion: Question = this.questions[0];
+  videoSrc: string = "";
 
   ngOnInit(): void {
     const user = sessionStorage.getItem('loggedInUser');
+    this.setBackgroundVideo('fluffy_cloud.mp44');
+    //this.setBackgroundVideo('mountainwater_sunset.mp4');
+  
     if (!user) {
       this.router.navigate(['/']); // Redirect to login if not logged in
     }
@@ -52,28 +63,37 @@ export class ParsonsProblemComponent implements OnInit {
     this.updatePaginatedQuestions();
   }
 
+  setBackgroundVideo(fileName: string): void {
+    // Set the path dynamically relative to 'src/assets/backgrounds'
+    this.videoSrc = "assets/backgrounds/" + fileName;
+    //this.videoSrc = "assets/backgrounds/sunset.mp4";
+  }
+
+
   initializeParsons(question: Question): void {
     if (this.parsons) {
       this.parsons.clear();
     }
-
+  
     this.parsons = new ParsonsWidget({
       sortableId: 'sortable',
       trashId: 'sortableTrash',
       max_wrong_lines: 1,
-      feedback_cb: (feedback: string) => console.log(feedback) // Define feedback type as string
+      feedback_cb: (feedback: string) => console.log(feedback)
     });
-
+  
     const codeString = question.code.join('\n');
-    this.parsons.init(codeString);
-    this.parsons.shuffleLines();
-  }
-
-  newInstance(): void {
-    if (this.parsons) {
+    console.log('Initializing ParsonsWidget with code:', codeString);
+  
+    setTimeout(() => {
+      this.parsons.init(codeString);
       this.parsons.shuffleLines();
-    }
+      console.log('ParsonsWidget initialized successfully.');
+    }, 0); // Ensure DOM elements are rendered
+    console.log(codeString);
   }
+  
+
 
   getFeedback(): void {
     if (this.parsons) {
@@ -85,12 +105,6 @@ export class ParsonsProblemComponent implements OnInit {
       }
     }
   }
-
-  toHome(): void {
-    console.log("Navigating to home page");
-    this.router.navigate(['/']); // Navigate to the /parsons route
-  }
-  
 
   // Method to handle pagination changes
   handlePageEvent(event: any): void {
@@ -110,10 +124,5 @@ export class ParsonsProblemComponent implements OnInit {
     }
   }
 
-  logout(): void {
-    sessionStorage.removeItem('loggedInUser'); // Remove user session
-    this.router.navigate(['/']); // Redirect to the login page or home
-    console.log('User logged out successfully.');
-  }
   
 }
